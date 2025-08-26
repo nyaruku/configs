@@ -9,9 +9,14 @@ BASHRC_PATH="/home/$USER/.bashrc"
 
 # COLORED ECHO OUTPUT FUNCTIONS
 echo_blue() {
-    echo -e "\033[1;34m$1\033[0m"
+    echo -e "\033[1;36m$1\033[0m"
 }
-
+echo_red() {
+    echo -e "\033[1;31m$1\033[0m"
+}
+echo_green() {
+    echo -e "\033[1;32m$1\033[0m"
+}
 
 
 echo_blue "Installing packages..."
@@ -41,17 +46,17 @@ mkdir -p ~/git  ~/deb
 
 echo_blue "Cloning yay from AUR..."
 if [ -d ~/git/yay ]; then
-    echo_blue "~/git/yay already exists"
+    echo_green "~/git/yay already exists"
     
     if command -v yay >/dev/null 2>&1; then
-        echo_blue "yay is installed"
+        echo_green "yay is installed"
     else
-        echo_blue "yay is not installed, attempting to clone and build..."
+        echo_red "yay is not installed, attempting to clone and build..."
         git clone --branch yay --single-branch https://github.com/archlinux/aur.git ~/git/yay && cd ~/git/yay && makepkg -si
     fi
    
 else
-    echo_blue "~/git/yay not found"
+    echo_red "~/git/yay not found"
     mkdir -p ~/git/yay
     echo_blue "Created ~/git/yay, cloning and buildung yay..."
     git clone --branch yay --single-branch https://github.com/archlinux/aur.git ~/git/yay && cd ~/git/yay && makepkg -si
