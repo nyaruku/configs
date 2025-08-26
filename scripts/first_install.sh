@@ -5,8 +5,6 @@ USER="railgun"
 REPO_PATH="/home/$USER/configs"
 BASHRC_PATH="/home/$USER/.bashrc"
 
-
-
 # COLORED ECHO OUTPUT FUNCTIONS
 echo_blue() {
     echo -e "\033[1;36m$1\033[0m"
@@ -18,11 +16,8 @@ echo_green() {
     echo -e "\033[1;32m$1\033[0m"
 }
 
-
 echo_blue "Installing packages..."
-sudo pacman -S --needed firefox nano vim git base-devel tmux ntfs-3g os-prober keepassxc hyfetch fastfetch less dpkg
-
-
+sudo pacman -S --needed firefox nano vim git base-devel tmux ntfs-3g os-prober keepassxc hyfetch fastfetch less dpkg discord noto-fonts-emoji noto-fonts ttf-dejavu
 
 # Create symlink and load .bashrc config
 echo_blue "Deleting .bashrc from ~ and symlink to the repo's config"
@@ -31,18 +26,12 @@ ln -sf "$REPO_PATH/bash/.bashrc" "$BASHRC_PATH"
 echo_blue "Created symlink, loading config..."
 source "$BASHRC_PATH"
 
-
-
 # create directories
 echo_blue "Creating directories..."
 mkdir -p ~/git  ~/deb
 
-
-
 # Template
 # git clone --branch <package_name> --single-branch https://github.com/archlinux/aur.git
-
-
 
 echo_blue "Cloning yay from AUR..."
 if [ -d ~/git/yay ]; then
@@ -53,8 +42,7 @@ if [ -d ~/git/yay ]; then
     else
         echo_red "yay is not installed, attempting to clone and build..."
         git clone --branch yay --single-branch https://github.com/archlinux/aur.git ~/git/yay && cd ~/git/yay && makepkg -si
-    fi
-   
+    fi   
 else
     echo_red "~/git/yay not found"
     mkdir -p ~/git/yay
