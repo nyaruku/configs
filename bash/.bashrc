@@ -1,1 +1,1 @@
-alias ll='ls -lah --color=auto'
+/home/railgun/.bashrc
