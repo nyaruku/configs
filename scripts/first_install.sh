@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo pacman -S --needed firefox nano vim git base-devel tmux ntfs-3g os-prober keepassxc hyfetch fastfetch
+sudo pacman -S --needed firefox nano vim git base-devel tmux ntfs-3g os-prober keepassxc hyfetch fastfetch less
 
 # Load bash config if it exists
 if [ -f ../bash/.bashrc ]; then
