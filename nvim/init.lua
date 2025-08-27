@@ -50,3 +50,11 @@ vim.api.nvim_set_keymap('n', '<A-v>', ':set paste<CR>"+p:set nopaste<CR>', { nor
 -- Paste from clipboard with Alt+V in insert mode, no prompt
 vim.api.nvim_set_keymap('i', '<A-v>', '<Esc>:set paste<CR>"+pa:set nopaste<CR>', { noremap = true, silent = true })
 
+-- Move the current line or selected lines up with Alt+Up
+vim.api.nvim_set_keymap('n', '<A-Up>', ':m .-2<CR>==', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<A-Up>', ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+
+-- Move the current line or selected lines down with Alt+Down
+vim.api.nvim_set_keymap('n', '<A-Down>', ':m .+1<CR>==', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<A-Down>', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+

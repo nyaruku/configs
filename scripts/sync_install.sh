@@ -27,7 +27,7 @@ echo_red "Make sure to enable multilib in /etc/pacman.conf before you continue"
 read -p "Press Enter to continue..."
 
 echo_blue "Installing packages..."
-sudo pacman -Sy --needed firefox nano vim git base-devel tmux ntfs-3g os-prober keepassxc hyfetch fastfetch less dpkg discord noto-fonts-emoji noto-fonts ttf-dejavu kitty steam gparted dosfstools mtools unzip zip nvim
+sudo pacman -Sy --needed firefox nano vim git base-devel tmux ntfs-3g os-prober keepassxc hyfetch fastfetch less dpkg discord noto-fonts-emoji noto-fonts ttf-dejavu kitty steam gparted dosfstools mtools unzip zip nvim xclip
 
 git config --global init.defaultBranch master
 echo_green "Set git config to use master as default branch"
@@ -43,6 +43,7 @@ ln -sf "${REPO_PATH}/bash/.bashrc" "${HOME_PATH}/.bashrc"
 ln -sf "${REPO_PATH}/vim/.vimrc" "${HOME_PATH}/.vimrc"
 ln -sf "${REPO_PATH}/nvim/init.vim" "${HOME_PATH}/.config/nvim/init.vim"
 ln -sf "${REPO_PATH}/kitty/kitty.conf" "${HOME_PATH}/.config/kitty/kitty.conf"
+ln -sf "${REPO_PATH}/tmux/tmux.conf" "${HOME_PATH}/.tmux.conf"
 
 echo_blue "Loading .bashrc config..."
 source "$HOME_PATH/.bashrc"
