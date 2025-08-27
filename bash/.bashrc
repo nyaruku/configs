@@ -15,3 +15,18 @@ PS1='[\u@\h \W]\$ '
 
 alias ll='ls -lha --color=auto'
 alias ls='ls -a --color=auto'
+alias df='df -h'
+
+aur() {
+    if [ -z "$1" ]; then
+        echo "Usage: aurget <package-name> [clone-path]"
+        return 1
+    fi
+
+    pkg="$1"
+    clone_path="${2:-$pkg}"  # If no second argument, use the package name as the clone path
+
+    echo "Cloning package '$pkg' into '$clone_path'..."
+    git clone --depth=1 "https://aur.archlinux.org/${pkg}.git" "$clone_path" && cd "$clone_path" && makepkg -si
+}
+

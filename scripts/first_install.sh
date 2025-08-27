@@ -3,7 +3,7 @@
 # VARIABLES
 USER="railgun"
 REPO_PATH="/home/$USER/configs"
-BASHRC_PATH="/home/$USER/.bashrc"
+HOME_PATH="/home/$USER"
 
 # COLORED ECHO OUTPUT FUNCTIONS
 echo_blue() {
@@ -16,15 +16,23 @@ echo_green() {
     echo -e "\033[1;32m$1\033[0m"
 }
 
-echo_blue "Installing packages..."
-sudo pacman -S --needed firefox nano vim git base-devel tmux ntfs-3g os-prober keepassxc hyfetch fastfetch less dpkg discord noto-fonts-emoji noto-fonts ttf-dejavu
+echo_red "Make sure to enable multilib in /etc/pacman.conf"
+read -p "Press Enter to continue..."
 
-# Create symlink and load .bashrc config
-echo_blue "Deleting .bashrc from ~ and symlink to the repo's config"
+echo_blue "Installing packages..."
+sudo pacman -Sy --needed firefox nano vim git base-devel tmux ntfs-3g os-prober keepassxc hyfetch fastfetch less dpkg discord noto-fonts-emoji noto-fonts ttf-dejavu kitty steam gparted dosfstools mtools unzip zip spotify
+
+git config --global init.defaultBranch master
+echo_green "Set git config to use master as default branch"
+
+# Create symlinks for configs
+echo_blue "Creating symlinks for config files"
 rm "$BASHRC_PATH"
-ln -sf "$REPO_PATH/bash/.bashrc" "$BASHRC_PATH"
-echo_blue "Created symlink, loading config..."
-source "$BASHRC_PATH"
+ln -sf "$REPO_PATH/bash/.bashrc" "$HOME_PATH/.bashrc"
+ln -sf "$REPO_PATH/vim/.vimrc" "$HOME_PATH/.vimrc"
+
+echo_blue "Loading .bashrc config..."
+source "$HOME_PATH/.bashrc"
 
 # create directories
 echo_blue "Creating directories..."
@@ -50,4 +58,24 @@ else
     git clone --branch yay --single-branch https://github.com/archlinux/aur.git ~/git/yay && cd ~/git/yay && makepkg -si
 fi
 
+echo_blue "Installing packages from AUR..."
+# AUR package list
+aur_packages=(
+  spotify
+  bauh
+  pulsemeeter
+)
+# Loop through each package
+for pkg in "${aur_packages[@]}"; do
+    if pacman -Qi "$pkg" &>/dev/null; then
+        echo_green "$pkg is already installed..."
+    else
+        echo_blue "Installing $pkg..."
+        yay -S --noconfirm "$pkg"
+        echo_green "Installed $pkg"
+    fi
+done
+
+
+cd "$HOME_PATH"
 
