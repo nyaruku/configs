@@ -27,26 +27,55 @@ echo_red "Make sure to enable multilib in /etc/pacman.conf before you continue"
 read -p "Press Enter to continue..."
 
 echo_blue "Installing packages..."
-sudo pacman -Sy --needed firefox nano vim git base-devel tmux ntfs-3g os-prober keepassxc hyfetch fastfetch less dpkg discord noto-fonts-emoji noto-fonts ttf-dejavu kitty steam gparted dosfstools mtools unzip zip nvim xclip xorg-xcursorgen xcur2png tree icoutils imagemagic icoutils imagemagick
+sudo pacman -Sy --needed firefox nano vim git base-devel tmux ntfs-3g os-prober keepassxc hyfetch fastfetch less dpkg discord noto-fonts-emoji noto-fonts ttf-dejavu kitty steam gparted dosfstools mtools unzip zip nvim xclip xorg-xcursorgen xcur2png tree icoutils imagemagic icoutils imagemagick xfwm4-themes lxappearance
 
 git config --global init.defaultBranch master
 echo_green "Set git config to use master as default branch"
 
 # Create directories
 echo_blue "Creating directories..."
-mkdir -p ~/git ~/deb ~/.config/nvim ~/.config/nvim/lua ~/.config/kitty
+dirs=(
+    "$HOME/git"
+    "$HOME/deb"
+    "$HOME/.config/nvim"
+    "$HOME/.config/nvim/lua"
+    "$HOME/.config/kitty"
+    "$HOME/.themes/railv1"
+    "$HOME/.icons"
+    "$HOME/.icons/default"
+)
+
+for dir in "${dirs[@]}"; do
+    mkdir -p "$dir"
+    echo_green "Created: $dir"
+done
 
 # Create symlinks for configs
 echo_blue "Creating symlinks for config files"
-#rm "$BASHRC_PATH"
-ln -sf "${REPO_PATH}/bash/.bashrc" "${HOME_PATH}/.bashrc"
-ln -sf "${REPO_PATH}/vim/.vimrc" "${HOME_PATH}/.vimrc"
-ln -sf "${REPO_PATH}/nvim/init.vim" "${HOME_PATH}/.config/nvim/init.vim"
-ln -sf "${REPO_PATH}/kitty/kitty.conf" "${HOME_PATH}/.config/kitty/kitty.conf"
-ln -sf "${REPO_PATH}/tmux/tmux.conf" "${HOME_PATH}/.tmux.conf"
+
+declare -A SYMLINKS=(
+  ["${REPO_PATH}/bash/.bashrc"]="${HOME_PATH}/.bashrc"
+  ["${REPO_PATH}/vim/.vimrc"]="${HOME_PATH}/.vimrc"
+  ["${REPO_PATH}/nvim/init.vim"]="${HOME_PATH}/.config/nvim/init.vim"
+  ["${REPO_PATH}/kitty/kitty.conf"]="${HOME_PATH}/.config/kitty/kitty.conf"
+  ["${REPO_PATH}/tmux/tmux.conf"]="${HOME_PATH}/.tmux.conf"
+  ["${REPO_PATH}/theme/wm/railv1/xfwm4"]="${HOME_PATH}/.themes/railv1/xfwm4" #broken but works
+  ["${REPO_PATH}/theme/cursor/ml_blau"]="${HOME_PATH}/.icons/ml_blau"
+  ["${REPO_PATH}/theme/cursor/default_index.theme"]="${HOME_PATH}/.icons/default.theme"
+)
+
+for SRC in "${!SYMLINKS[@]}"; do
+    DEST="${SYMLINKS[$SRC]}"
+    mkdir -p "$(dirname "$DEST")"
+    ln -sf "$SRC" "$DEST"
+    echo_green "Symlinked: $SRC -> $DEST"
+done
+
+echo_blue "Applying WM Theme..."
+xfconf-query -c xfwm4 -p /general/theme -s "railv1"
 
 # Download and install AUR
-echo_blue "Cloning yay from AUR..."
+echo_blue "Checking yay..."
 if [ -d ~/git/yay ]; then
     echo_green "~/git/yay already exists"
     
@@ -84,23 +113,7 @@ done
 
 cd "${HOME_PATH}"
 
-echo_blue "Setting up cursor theme config..."
-
-# Ensure ~/.icons exists
-mkdir -p ~/.icons
-
-# Symlink cursor theme folder from repo
-ln -sfn ~/configs/theme/cursor/ml_blau ~/.icons/ml_blau
-
-# Ensure default folder exists
-mkdir -p ~/.icons/default
-
-# Point default theme to ml_blau
-ln -sfn ~/configs/theme/cursor/default_index.theme ~/.icons/default/index.theme
-
-echo_green "Cursor theme setup complete."
-
 echo_blue "Loading .bashrc config..."
 source "$HOME_PATH/.bashrc"
 
-echo_blue "Log out and log back in to apply cursor"
+echo_blue "Note: You need to restart an Application to apply the cursor"
