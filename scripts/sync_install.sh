@@ -27,7 +27,7 @@ echo_red "Make sure to enable multilib in /etc/pacman.conf before you continue"
 read -p "Press Enter to continue..."
 
 echo_blue "Installing packages..."
-sudo pacman -Sy --needed firefox nano vim git base-devel tmux ntfs-3g os-prober keepassxc hyfetch fastfetch less dpkg discord noto-fonts-emoji noto-fonts ttf-dejavu kitty steam gparted dosfstools mtools unzip zip nvim xclip
+sudo pacman -Sy --needed firefox nano vim git base-devel tmux ntfs-3g os-prober keepassxc hyfetch fastfetch less dpkg discord noto-fonts-emoji noto-fonts ttf-dejavu kitty steam gparted dosfstools mtools unzip zip nvim xclip xorg-xcursorgen xcur2png tree icoutils imagemagic icoutils imagemagick
 
 git config --global init.defaultBranch master
 echo_green "Set git config to use master as default branch"
@@ -44,9 +44,6 @@ ln -sf "${REPO_PATH}/vim/.vimrc" "${HOME_PATH}/.vimrc"
 ln -sf "${REPO_PATH}/nvim/init.vim" "${HOME_PATH}/.config/nvim/init.vim"
 ln -sf "${REPO_PATH}/kitty/kitty.conf" "${HOME_PATH}/.config/kitty/kitty.conf"
 ln -sf "${REPO_PATH}/tmux/tmux.conf" "${HOME_PATH}/.tmux.conf"
-
-echo_blue "Loading .bashrc config..."
-source "$HOME_PATH/.bashrc"
 
 # Download and install AUR
 echo_blue "Cloning yay from AUR..."
@@ -86,3 +83,24 @@ for pkg in "${aur_packages[@]}"; do
 done
 
 cd "${HOME_PATH}"
+
+echo_blue "Setting up cursor theme config..."
+
+# Ensure ~/.icons exists
+mkdir -p ~/.icons
+
+# Symlink cursor theme folder from repo
+ln -sfn ~/configs/theme/cursor/ml_blau ~/.icons/ml_blau
+
+# Ensure default folder exists
+mkdir -p ~/.icons/default
+
+# Point default theme to ml_blau
+ln -sfn ~/configs/theme/cursor/default_index.theme ~/.icons/default/index.theme
+
+echo_green "Cursor theme setup complete."
+
+echo_blue "Loading .bashrc config..."
+source "$HOME_PATH/.bashrc"
+
+echo_blue "Log out and log back in to apply cursor"

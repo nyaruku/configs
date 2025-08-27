@@ -30,3 +30,6 @@ aur() {
     git clone --depth=1 "https://aur.archlinux.org/${pkg}.git" "$clone_path" && cd "$clone_path" && makepkg -si
 }
 
+# ml_blau cursor
+export GTK_CURSORS=ml_blau
+
