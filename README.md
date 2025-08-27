@@ -1,2 +1,2 @@
 Personal Configs and Scripts
-- everything except voicemeeter banana is linux
+- everything except voicemeeter is linux
