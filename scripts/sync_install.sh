@@ -27,7 +27,7 @@ echo_red "Make sure to enable multilib in /etc/pacman.conf before you continue"
 read -p "Press Enter to continue..."
 
 echo_blue "Installing packages..."
-sudo pacman -Sy --needed firefox nano vim git base-devel tmux ntfs-3g os-prober keepassxc hyfetch fastfetch less dpkg discord noto-fonts-emoji noto-fonts ttf-dejavu kitty steam gparted dosfstools mtools unzip zip nvim xclip xorg-xcursorgen xcur2png tree icoutils icoutils imagemagick xfwm4-themes lxappearance glxinfo
+sudo pacman -Sy --needed firefox nano vim git base-devel tmux ntfs-3g os-prober keepassxc hyfetch fastfetch less dpkg discord noto-fonts-emoji noto-fonts ttf-dejavu kitty steam gparted dosfstools mtools unzip zip nvim xclip xorg-xcursorgen xcur2png tree icoutils icoutils imagemagick xfwm4-themes lxappearance glxinfo gnome-tweaks
 
 git config --global init.defaultBranch master
 echo_green "Set git config to use master as default branch"
@@ -62,6 +62,7 @@ declare -A SYMLINKS=(
   ["${REPO_PATH}/theme/wm/railv1/xfwm4"]="${HOME_PATH}/.themes/railv1/xfwm4" #broken but works
   ["${REPO_PATH}/theme/cursor/ml_blau"]="${HOME_PATH}/.icons/ml_blau"
   ["${REPO_PATH}/theme/cursor/default_index.theme"]="${HOME_PATH}/.icons/default.theme"
+  ["${REPO_PATH}/theme/icons/breeze_chameleon_dark"]="${HOME_PATH}/.icons/breeze_chameleon_dark"
 )
 
 for SRC in "${!SYMLINKS[@]}"; do
@@ -100,6 +101,7 @@ aur_packages=(
   pulsemeeter
   win2xcur
   nvtop
+  debtap
 )
 # Loop through each package
 for pkg in "${aur_packages[@]}"; do

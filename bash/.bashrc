@@ -16,7 +16,7 @@ PS1='[\u@\h \W]\$ '
 alias ll='ls -lha --color=auto'
 alias ls='ls -a --color=auto'
 alias df='df -h'
-
+alias treed='tree -d'
 aur() {
     if [ -z "$1" ]; then
         echo "Usage: aurget <package-name> [clone-path]"
