@@ -65,6 +65,7 @@ declare -A SYMLINKS=(
   ["${REPO_PATH}/theme/cursor/ml_blau"]="${HOME_PATH}/.icons/ml_blau"
   ["${REPO_PATH}/theme/cursor/default_index.theme"]="${HOME_PATH}/.icons/default.theme"
   ["${REPO_PATH}/theme/icons/breeze_chameleon_dark"]="${HOME_PATH}/.icons/breeze_chameleon_dark"
+  ["${REPO_PATH}/theme/gtk-theme/Nord-Black-Frost"]="${HOME_PATH}/.themes/Nord-Black-Frost"
 )
 
 for SRC in "${!SYMLINKS[@]}"; do
