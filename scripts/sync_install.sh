@@ -27,7 +27,7 @@ echo_red "Make sure to enable multilib in /etc/pacman.conf before you continue"
 read -p "Press Enter to continue..."
 
 echo_blue "Installing packages..."
-sudo pacman -Sy --needed firefox nano vim git base-devel tmux ntfs-3g os-prober keepassxc hyfetch fastfetch less dpkg discord noto-fonts-emoji noto-fonts ttf-dejavu kitty steam gparted dosfstools mtools unzip zip nvim xclip xorg-xcursorgen xcur2png tree icoutils imagemagic icoutils imagemagick xfwm4-themes lxappearance
+sudo pacman -Sy --needed firefox nano vim git base-devel tmux ntfs-3g os-prober keepassxc hyfetch fastfetch less dpkg discord noto-fonts-emoji noto-fonts ttf-dejavu kitty steam gparted dosfstools mtools unzip zip nvim xclip xorg-xcursorgen xcur2png tree icoutils icoutils imagemagick xfwm4-themes lxappearance glxinfo
 
 git config --global init.defaultBranch master
 echo_green "Set git config to use master as default branch"
@@ -56,9 +56,9 @@ echo_blue "Creating symlinks for config files"
 declare -A SYMLINKS=(
   ["${REPO_PATH}/bash/.bashrc"]="${HOME_PATH}/.bashrc"
   ["${REPO_PATH}/vim/.vimrc"]="${HOME_PATH}/.vimrc"
+  ["${REPO_PATH}/tmux/tmux.conf"]="${HOME_PATH}/.tmux.conf"
   ["${REPO_PATH}/nvim/init.vim"]="${HOME_PATH}/.config/nvim/init.vim"
   ["${REPO_PATH}/kitty/kitty.conf"]="${HOME_PATH}/.config/kitty/kitty.conf"
-  ["${REPO_PATH}/tmux/tmux.conf"]="${HOME_PATH}/.tmux.conf"
   ["${REPO_PATH}/theme/wm/railv1/xfwm4"]="${HOME_PATH}/.themes/railv1/xfwm4" #broken but works
   ["${REPO_PATH}/theme/cursor/ml_blau"]="${HOME_PATH}/.icons/ml_blau"
   ["${REPO_PATH}/theme/cursor/default_index.theme"]="${HOME_PATH}/.icons/default.theme"
@@ -99,6 +99,7 @@ aur_packages=(
   bauh
   pulsemeeter
   win2xcur
+  nvtop
 )
 # Loop through each package
 for pkg in "${aur_packages[@]}"; do
