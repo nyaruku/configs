@@ -33,3 +33,22 @@ aur() {
 # ml_blau cursor
 export GTK_CURSORS=ml_blau
 
+export LS_COLORS="\
+di=01;34:\
+ln=01;36:\
+mh=00:\
+pi=33:\
+so=01;35:\
+do=01;35:\
+bd=01;33:\
+cd=01;33:\
+or=01;31:\
+mi=00:\
+su=01;31:\
+sg=01;33:\
+ca=00:\
+tw=01;34:\
+ow=01;34:\
+st=01;34:\
+ex=01;32"
+
