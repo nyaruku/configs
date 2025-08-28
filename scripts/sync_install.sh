@@ -105,6 +105,7 @@ aur_packages=(
   win2xcur
   nvtop
   debtap
+  steam-acolyte
 )
 # Loop through each package
 for pkg in "${aur_packages[@]}"; do
