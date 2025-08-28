@@ -27,7 +27,57 @@ echo_red "Make sure to enable multilib in /etc/pacman.conf before you continue"
 read -p "Press Enter to continue..."
 
 echo_blue "Installing packages..."
-sudo pacman -Sy --needed firefox nano vim git base-devel tmux ntfs-3g os-prober keepassxc hyfetch fastfetch less dpkg discord noto-fonts-emoji noto-fonts ttf-dejavu kitty steam gparted dosfstools mtools unzip zip nvim xclip xorg-xcursorgen xcur2png tree icoutils icoutils imagemagick xfwm4-themes lxappearance glxinfo gnome-tweaks obs-studio flameshot
+packages=(
+    firefox
+    nano
+    vim
+    git
+    base-devel
+    tmux
+    ntfs-3g
+    os-prober
+    keepassxc
+    hyfetch
+    fastfetch
+    less
+    dpkg
+    discord
+    noto-fonts-emoji
+    noto-fonts
+    ttf-dejavu
+    kitty
+    steam
+    gparted
+    dosfstools
+    mtools
+    unzip
+    zip
+    nvim
+    xclip
+    xorg-xcursorgen
+    xcur2png
+    tree
+    icoutils
+    imagemagick
+    xfwm4-themes
+    lxappearance
+    glxinfo
+    gnome-tweaks
+    obs-studio
+    flameshot
+    libva
+    libva-nvidia-driver
+    wine
+    wine-mono
+    wine-gecko
+    lib32-glibc
+    lib32-gcc-libs
+    lib32-mesa
+    lib32-nvidia-utils
+    winetricks
+)
+
+sudo pacman -Sy --needed "${packages[@]}"
 
 git config --global init.defaultBranch master
 echo_green "Set git config to use master as default branch"
@@ -106,6 +156,8 @@ aur_packages=(
   nvtop
   debtap
   steam-acolyte
+  lutris
+  opentabletdriver
 )
 # Loop through each package
 for pkg in "${aur_packages[@]}"; do
