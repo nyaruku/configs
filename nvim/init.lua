@@ -22,15 +22,28 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Setup plugins with lazy.nvim
-require("lazy").setup({
+-- Define plugins in an array
+local plugins = {
   {
     "nyoom-engineering/oxocarbon.nvim",
     config = function()
       vim.cmd([[colorscheme oxocarbon]])
     end,
   },
-})
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+  },
+  {
+    "nvim-lualine/lualine.nvim",
+    config = function()
+      require("lualine").setup()
+    end,
+  },
+}
+
+-- Setup plugins with lazy.nvim
+require("lazy").setup(plugins)
 
 -- Optional: other general options
 vim.o.number = true         -- Show line numbers
