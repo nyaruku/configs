@@ -91,6 +91,7 @@ dirs=(
     "$HOME/.config/nvim/lua"
     "$HOME/.config/kitty"
     "$HOME/.config/flameshot"
+    "$HOME/.config/pipewire"
     "$HOME/.themes/railv1"
     "$HOME/.icons"
     "$HOME/.icons/default"
@@ -111,6 +112,7 @@ declare -A SYMLINKS=(
   ["${REPO_PATH}/nvim/init.vim"]="${HOME_PATH}/.config/nvim/init.vim"
   ["${REPO_PATH}/kitty/kitty.conf"]="${HOME_PATH}/.config/kitty/kitty.conf"
   ["${REPO_PATH}/flameshot/flameshot.ini"]="${HOME_PATH}/.config/flameshot/flameshot.ini"
+
   ["${REPO_PATH}/theme/wm/railv1/xfwm4"]="${HOME_PATH}/.themes/railv1/xfwm4" #broken but works
   ["${REPO_PATH}/theme/cursor/ml_blau"]="${HOME_PATH}/.icons/ml_blau"
   ["${REPO_PATH}/theme/cursor/default_index.theme"]="${HOME_PATH}/.icons/default.theme"
@@ -123,6 +125,12 @@ for SRC in "${!SYMLINKS[@]}"; do
     mkdir -p "$(dirname "$DEST")"
     ln -sf "$SRC" "$DEST"
     echo_green "Symlinked: $SRC -> $DEST"
+done
+
+# symlink pipewire
+for f in ${REPO_PATH}/pipewire/*; do
+    ln -sf "$f" "${HOME_PATH}/.config/pipewire/"
+    echo_green "Symlinked: $f -> ${HOME_PATH}/.config/pipewire/"
 done
 
 echo_blue "Applying WM Theme..."

@@ -12,18 +12,49 @@ HEIGHT=$2
 HZ=$3
 MONITOR=$4
 
-# Generate modeline using cvt
-MODELINE=$(cvt $WIDTH $HEIGHT $HZ | grep Modeline | cut -d' ' -f2-)
+# Function to generate modeline using a given tool
+generate_modeline() {
+    local tool=$1
+    local args=$2
+    MODELINE=$( $tool $args 2>/dev/null | grep Modeline | cut -d' ' -f2- )
+    echo $MODELINE
+}
 
-# Extract the mode name (first quoted string after 'Modeline')
+# Try cvt
+MODELINE=$(generate_modeline cvt "$WIDTH $HEIGHT $HZ")
+
+# If cvt fails, try cvt -r
+if [ -z "$MODELINE" ]; then
+    echo "cvt failed, trying reduced blanking..."
+    MODELINE=$(generate_modeline cvt "-r $WIDTH $HEIGHT $HZ")
+fi
+
+# If still fails, try gtf
+if [ -z "$MODELINE" ]; then
+    echo "cvt -r failed, trying gtf..."
+    MODELINE=$(generate_modeline gtf "$WIDTH $HEIGHT $HZ")
+fi
+
+# If still empty, exit
+if [ -z "$MODELINE" ]; then
+    echo "❌ Failed to generate modeline. Cannot continue."
+    exit 1
+fi
+
+# Extract mode name
 MODENAME=$(echo $MODELINE | awk '{print $1}' | tr -d '"')
 
 echo "Adding mode: $MODENAME for monitor $MONITOR"
 
-# Add the new mode
-xrandr --newmode $MODELINE
+# Add mode
+xrandr --newmode $MODELINE 2>/dev/null
+if ! xrandr | grep -q "$MODENAME"; then
+    echo "❌ Failed to add mode $MODENAME. Your GPU/monitor may not support it."
+    exit 1
+fi
+
 xrandr --addmode $MONITOR $MODENAME
 
-# Apply the mode
+# Apply mode
 xrandr --output $MONITOR --mode $MODENAME
 
