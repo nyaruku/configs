@@ -25,9 +25,9 @@ vim.opt.rtp:prepend(lazypath)
 -- Define plugins in an array
 local plugins = {
   {
-    "nyoom-engineering/oxocarbon.nvim",
+    "blazkowolf/gruber-darker.nvim",
     config = function()
-      vim.cmd([[colorscheme oxocarbon]])
+      vim.cmd([[colorscheme gruber-darker]])
     end,
   },
   {
@@ -38,6 +38,14 @@ local plugins = {
     "nvim-lualine/lualine.nvim",
     config = function()
       require("lualine").setup()
+    end,
+  },
+  {
+    "nvim-tree/nvim-tree.lua",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+    require("nvim-tree").setup()
+    vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
     end,
   },
 }
@@ -70,4 +78,8 @@ vim.api.nvim_set_keymap('v', '<A-Up>', ":m '<-2<CR>gv=gv", { noremap = true, sil
 -- Move the current line or selected lines down with Alt+Down
 vim.api.nvim_set_keymap('n', '<A-Down>', ':m .+1<CR>==', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<A-Down>', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+
+-- Visual indenting without losing selection
+vim.keymap.set("v", "<", "<gv", { noremap = true, silent = true })
+vim.keymap.set("v", ">", ">gv", { noremap = true, silent = true })
 
