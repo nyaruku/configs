@@ -92,11 +92,11 @@ dirs=(
     "$HOME/.config/nvim/lua"
     "$HOME/.config/kitty"
     #"$HOME/.config/flameshot"
+    #"$HOME/.config/emacs"
     "$HOME/.config/pipewire"
     "$HOME/.themes/railv1"
     "$HOME/.icons"
     "$HOME/.icons/default"
-    "$HOME/.emacs.d"
 )
 
 for dir in "${dirs[@]}"; do
@@ -114,7 +114,7 @@ declare -A SYMLINKS=(
   ["${REPO_PATH}/nvim/init.vim"]="${HOME_PATH}/.config/nvim/init.vim"
   ["${REPO_PATH}/kitty/kitty.conf"]="${HOME_PATH}/.config/kitty/kitty.conf"
   #["${REPO_PATH}/flameshot/flameshot.ini"]="${HOME_PATH}/.config/flameshot/flameshot.ini"
-  ["${REPO_PATH}/emacs/init.el"]="${HOME_PATH}/.emacs.d/init.el"
+  ["${REPO_PATH}/emacs/init.el"]="${HOME_PATH}/.emacs"
 
   ["${REPO_PATH}/theme/wm/railv1/xfwm4"]="${HOME_PATH}/.themes/railv1/xfwm4" #broken but works
   ["${REPO_PATH}/theme/cursor/ml_blau"]="${HOME_PATH}/.icons/ml_blau"
