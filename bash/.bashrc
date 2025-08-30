@@ -17,6 +17,7 @@ alias ll='ls -lha --color=auto'
 alias ls='ls -a --color=auto'
 alias df='df -h'
 alias treed='tree -d'
+alias emacs='emacs -nw' # emacs in cli mode without arg
 aur() {
     if [ -z "$1" ]; then
         echo "Usage: aurget <package-name> [clone-path]"
