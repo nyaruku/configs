@@ -63,11 +63,11 @@ packages=(
     lxappearance
     glxinfo
     gnome-tweaks
-    obs-studio
+    #obs-studio
     #flameshot
     libva
     libva-nvidia-driver
-    wine
+    wine-staging
     wine-mono
     wine-gecko
     lib32-glibc
@@ -75,7 +75,8 @@ packages=(
     lib32-mesa
     lib32-nvidia-utils
     winetricks
-    emacs
+    mpv
+	noto-fonts-cjk
 )
 
 sudo pacman -Sy --needed "${packages[@]}"
@@ -97,6 +98,7 @@ dirs=(
     "$HOME/.themes/railv1"
     "$HOME/.icons"
     "$HOME/.icons/default"
+    "$HOME/.config/mpv"
 )
 
 for dir in "${dirs[@]}"; do
@@ -115,6 +117,7 @@ declare -A SYMLINKS=(
   ["${REPO_PATH}/kitty/kitty.conf"]="${HOME_PATH}/.config/kitty/kitty.conf"
   #["${REPO_PATH}/flameshot/flameshot.ini"]="${HOME_PATH}/.config/flameshot/flameshot.ini"
   ["${REPO_PATH}/emacs/init.el"]="${HOME_PATH}/.emacs"
+  ["${REPO_PATH}/mpv/mpv.conf"]="${HOME_PATH}/.config/mpv/mpv.conf"
 
   ["${REPO_PATH}/theme/wm/railv1/xfwm4"]="${HOME_PATH}/.themes/railv1/xfwm4" #broken but works
   ["${REPO_PATH}/theme/cursor/ml_blau"]="${HOME_PATH}/.icons/ml_blau"

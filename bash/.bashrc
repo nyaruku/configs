@@ -18,6 +18,8 @@ alias ls='ls -a --color=auto'
 alias df='df -h'
 alias treed='tree -d'
 alias emacs='emacs -nw' # emacs in cli mode without arg
+alias sue='sudoedit'
+
 aur() {
     if [ -z "$1" ]; then
         echo "Usage: aurget <package-name> [clone-path]"
@@ -31,9 +33,28 @@ aur() {
     git clone --depth=1 "https://aur.archlinux.org/${pkg}.git" "$clone_path" && cd "$clone_path" && makepkg -si
 }
 
+nvim() {
+    # If no file given, just run normal nvim
+    if [ $# -eq 0 ]; then
+        command nvim
+        return
+    fi
+
+    for file in "$@"; do
+        # If the file exists and is writable by the user, open normally
+        if [ -w "$file" ] || [ ! -e "$file" ]; then
+            command nvim "$file"
+        else
+            # If not writable (needs root), use sudoedit
+            sudoedit "$file"
+        fi
+    done
+}
+
 # ml_blau cursor
 export GTK_CURSORS=ml_blau
-
+export EDITOR=nvim
+export VISUAL=nvim
 export LS_COLORS="\
 di=01;34:\
 ln=01;36:\
@@ -53,3 +74,5 @@ ow=01;34:\
 st=01;34:\
 ex=01;32"
 
+export PATH=/home/railgun/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/var/lib/flatpak/exports/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl
+export PATH=/home/railgun/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/var/lib/flatpak/exports/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl
