@@ -238,3 +238,31 @@ vim.keymap.set("n", "<leader>Q", ":NvimTreeClose | qa<CR>", { noremap = true, si
 vim.keymap.set("n", "<Leader><PageUp>", "<Cmd>BufferPrevious<CR>", { silent = true, noremap = true })
 vim.keymap.set("n", "<Leader><PageDown>", "<Cmd>BufferNext<CR>", { silent = true, noremap = true })
 
+-- Paste at current line/position, keep cursor in place
+local function paste_keep_cursor(register)
+  local reg = register or '+'                      -- default to system clipboard
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0)) -- save cursor
+  local mode = vim.fn.getregtype(reg)             -- check register type
+
+  if mode:match('V') then
+    -- linewise: paste at current line (current line shifts down)
+    vim.cmd('normal! m`')                         -- mark position
+    vim.cmd('normal! "'..reg..'P')                -- paste before current line
+  else
+    -- characterwise: paste at cursor
+    vim.cmd('normal! m`')
+    vim.cmd('normal! "'..reg..'p')
+  end
+
+  vim.api.nvim_win_set_cursor(0, {row, col})      -- restore cursor
+end
+
+-- Override paste keys
+vim.keymap.set('n', 'p', function() paste_keep_cursor('"') end, { noremap = true, silent = true })
+vim.keymap.set('n', 'P', function() paste_keep_cursor('"') end, { noremap = true, silent = true })
+vim.keymap.set('n', '<A-v>', function() paste_keep_cursor('+') end, { noremap = true, silent = true })
+
+vim.keymap.set('v', 'p', function() paste_keep_cursor('"') end, { noremap = true, silent = true })
+vim.keymap.set('v', 'P', function() paste_keep_cursor('"') end, { noremap = true, silent = true })
+vim.keymap.set('v', '<A-v>', function() paste_keep_cursor('+') end, { noremap = true, silent = true })
+
