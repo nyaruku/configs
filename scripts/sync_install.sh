@@ -18,7 +18,38 @@ echo_green() {
 	echo -e "\033[1;32m$1\033[0m"
 }
 
-# VARIABLES
+# --------------------
+# ARGUMENT PARSING / HELP
+# --------------------
+
+HEADLESS=0
+FORCE_GPU=""
+
+# Check if --help exists anywhere in the arguments
+if [[ " $* " == *" --help "* ]]; then
+    echo "Usage: $0 [options]"
+    echo ""
+    echo "Options:"
+    echo "  -n        Force NVIDIA GPU package selection"
+    echo "  -a        Force AMD GPU package selection"
+    echo "  -h        Headless mode (no GUI packages)"
+    echo "  --help    Show this help message and exit"
+    exit 0
+fi
+
+# Parse short flags
+while getopts "nah" opt; do
+    case $opt in
+        n) FORCE_GPU="NVIDIA" ;;
+        a) FORCE_GPU="AMD" ;;
+        h) HEADLESS=1 ;;
+        *) echo "Try '$0 --help' for usage."; exit 1 ;;
+    esac
+done
+
+# --------------------
+# NOW SET VARIABLES
+# --------------------
 SYNC_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_PATH="$(realpath "$SYNC_PATH/../")"
 
@@ -29,54 +60,52 @@ echo_blue "HOME_PATH: '$HOME'"
 echo_red "Make sure to enable multilib in /etc/pacman.conf before you continue"
 read -p "Press Enter to continue..."
 
-packages=(
-    firefox
-	chromium
+base_packages=(
     nano
     vim
-	nvim
+    nvim
     git
     base-devel
     tmux
     ntfs-3g
     os-prober
-    keepassxc
     hyfetch
     fastfetch
     less
     dpkg
-    discord
     noto-fonts-emoji
     noto-fonts
     ttf-dejavu
+    unzip
+    zip
+    xclip
+    tree
+    imagemagick
+    cmake
+    noto-fonts-cjk
+)
+
+desktop_packages=(
+    firefox
+    chromium
+    discord
     kitty
     steam
     gparted
     dosfstools
     mtools
-    unzip
-    zip
-    xclip
     xorg-xcursorgen
     xcur2png
-    tree
     icoutils
-    imagemagick
     xfwm4-themes
     lxappearance
     glxinfo
     gnome-tweaks
+    libva
+    mpv
+	keepassxc
     #obs-studio
     #flameshot
-    libva
-    libva-nvidia-driver
-    wine-staging
-    wine-mono
-    wine-gecko
-    winetricks
-    mpv
-	noto-fonts-cjk
-	cmake
 )
 
 nvidia_packages=(
@@ -95,17 +124,6 @@ amd_packages=(
     vulkan-radeon
     lib32-vulkan-radeon
 )
-
-# --------------------
-
-FORCE_GPU=""
-while getopts "na" opt; do
-    case $opt in
-        n) FORCE_GPU="NVIDIA" ;;
-        a) FORCE_GPU="AMD" ;;
-        *) echo "Usage: $0 [-n (force NVIDIA)] [-a (force AMD)]"; exit 1 ;;
-    esac
-done
 
 # -------------------------
 # DETECT GPU
@@ -141,20 +159,27 @@ echo_green "Set git config to use master as default branch"
 
 # Create directories
 echo_blue "Creating directories..."
+
 dirs=(
-    "${HOME}/git"
+	"${HOME}/git"
     "${HOME}/deb"
     "${HOME}/.config/nvim"
     "${HOME}/.config/nvim/lua"
-    "${HOME}/.config/kitty"
-    #"${HOME}/.config/flameshot"
-    #"${HOME}/.config/emacs"
     "${HOME}/.config/pipewire"
-    "${HOME}/.themes/railv1"
-    "${HOME}/.icons"
-    "${HOME}/.icons/default"
     "${HOME}/.config/mpv"
 )
+
+# Add GUI dirs only if not headless
+if [[ "$HEADLESS" != 1 ]]; then
+    dirs+=(
+        "${HOME}/.config/kitty"
+        #"${HOME}/.config/flameshot"
+        #"${HOME}/.config/emacs"
+        "${HOME}/.themes/railv1"
+        "${HOME}/.icons"
+        "${HOME}/.icons/default"
+    )
+fi
 
 for dir in "${dirs[@]}"; do
     mkdir -p "$dir"
@@ -164,24 +189,23 @@ done
 # Create symlinks for configs
 echo_blue "Creating symlinks for config files"
 
+# Non-GUI symlinks (always)
 declare -A SYMLINKS=(
   ["${REPO_PATH}/bash/.bashrc"]="${HOME}/.bashrc"
   ["${REPO_PATH}/vim/.vimrc"]="${HOME}/.vimrc"
   ["${REPO_PATH}/tmux/tmux.conf"]="${HOME}/.tmux.conf"
   ["${REPO_PATH}/nvim/init.vim"]="${HOME}/.config/nvim/init.vim"
-  ["${REPO_PATH}/kitty/kitty.conf"]="${HOME}/.config/kitty/kitty.conf"
-  #["${REPO_PATH}/flameshot/flameshot.ini"]="${HOME}/.config/flameshot/flameshot.ini"
-  #["${REPO_PATH}/emacs/init.el"]="${HOME}/.emacs"
   ["${REPO_PATH}/mpv/mpv.conf"]="${HOME}/.config/mpv/mpv.conf"
   ["${REPO_PATH}/bash-git-prompt"]="${HOME}/.bash-git-prompt"
-
-  # OLD THEME (x11 | xfce4), TODO: (KDE | Wayland)
-  #["${REPO_PATH}/theme/wm/railv1/xfwm4"]="${HOME}/.themes/railv1/xfwm4" #broken but works
-  #["${REPO_PATH}/theme/cursor/ml_blau"]="${HOME}/.icons/ml_blau"
-  #["${REPO_PATH}/theme/cursor/default_index.theme"]="${HOME}/.icons/default.theme"
-  #["${REPO_PATH}/theme/icons/breeze_chameleon_dark"]="${HOME}/.icons/breeze_chameleon_dark"
-  ["${REPO_PATH}/theme/gtk-theme/Nord-Black-Frost"]="${HOME}/.themes/Nord-Black-Frost"
 )
+
+# GUI symlinks (only desktop)
+if [[ "$HEADLESS" != 1 ]]; then
+    SYMLINKS["${REPO_PATH}/kitty/kitty.conf"]="${HOME}/.config/kitty/kitty.conf"
+    #SYMLINKS["${REPO_PATH}/flameshot/flameshot.ini"]="${HOME}/.config/flameshot/flameshot.ini"
+    #SYMLINKS["${REPO_PATH}/emacs/init.el"]="${HOME}/.emacs"
+    SYMLINKS["${REPO_PATH}/theme/gtk-theme/Nord-Black-Frost"]="${HOME}/.themes/Nord-Black-Frost"
+fi
 
 for SRC in "${!SYMLINKS[@]}"; do
     DEST="${SYMLINKS[$SRC]}"
@@ -219,23 +243,35 @@ fi
 
 echo_blue "Installing packages from AUR..."
 # AUR package list
-aur_packages=(
+
+aur_packages_desktop=(
   spotify
   bauh
   pulsemeeter
   win2xcur
   nvtop
-  debtap
   steam-acolyte
   lutris
   opentabletdriver
-  debtap
   obs-studio-browser
   ffmpeg-obs
-  #gamescope-git
   pinta
   spotify-1.1
 )
+
+aur_packages_server=(
+  debtap
+)
+
+# Select AUR packages based on HEADLESS
+if [[ "$HEADLESS" == 1 ]]; then
+    aur_packages=("${aur_packages_server[@]}")
+    echo_blue "Headless mode: Installing server AUR packages only"
+else
+    aur_packages=("${aur_packages_desktop[@]}" "${aur_packages_server[@]}")
+    echo_blue "Desktop mode: Installing desktop + server AUR packages"
+fi
+
 # Loop through each package
 for pkg in "${aur_packages[@]}"; do
     if pacman -Qi "$pkg" &>/dev/null; then
