@@ -84,3 +84,13 @@ ex=01;32"
 
 export PATH=/home/railgun/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/var/lib/flatpak/exports/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl
 export PATH=/home/railgun/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/var/lib/flatpak/exports/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl
+
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+
+# Add all private keys in ~/.ssh, skip .pub files
+for key in ~/.ssh/*; do
+    if [[ -f "$key" && "${key##*.}" != "pub" ]]; then
+        ssh-add "$key" 2>/dev/null
+    fi
+done
+
