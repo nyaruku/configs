@@ -54,8 +54,9 @@ SYNC_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_PATH="$(realpath "$SYNC_PATH/../")"
 
 echo_blue "USER: '$USER'"
-echo_blue "REPO_PATH: '$REPO_PATH'"
 echo_blue "HOME_PATH: '$HOME'"
+echo_blue "REPO_PATH: '$REPO_PATH'"
+echo_blue "SYNC_PATH: '$SYNC_PATH'"
 
 echo_red "Make sure to enable multilib in /etc/pacman.conf before you continue"
 read -p "Press Enter to continue..."
@@ -178,6 +179,7 @@ if [[ "$HEADLESS" != 1 ]]; then
         "${HOME}/.themes/railv1"
         "${HOME}/.icons"
         "${HOME}/.icons/default"
+		"${HOME}/.config/hypr"
     )
 fi
 
@@ -194,7 +196,7 @@ declare -A SYMLINKS=(
   ["${REPO_PATH}/bash/.bashrc"]="${HOME}/.bashrc"
   ["${REPO_PATH}/vim/.vimrc"]="${HOME}/.vimrc"
   ["${REPO_PATH}/tmux/tmux.conf"]="${HOME}/.tmux.conf"
-  ["${REPO_PATH}/nvim/init.vim"]="${HOME}/.config/nvim/init.vim"
+  ["${REPO_PATH}/nvim/init.lua"]="${HOME}/.config/nvim/init.lua"
   ["${REPO_PATH}/mpv/mpv.conf"]="${HOME}/.config/mpv/mpv.conf"
   ["${REPO_PATH}/bash-git-prompt"]="${HOME}/.bash-git-prompt"
 )
@@ -205,14 +207,35 @@ if [[ "$HEADLESS" != 1 ]]; then
     #SYMLINKS["${REPO_PATH}/flameshot/flameshot.ini"]="${HOME}/.config/flameshot/flameshot.ini"
     #SYMLINKS["${REPO_PATH}/emacs/init.el"]="${HOME}/.emacs"
     SYMLINKS["${REPO_PATH}/theme/gtk-theme/Nord-Black-Frost"]="${HOME}/.themes/Nord-Black-Frost"
+    SYMLINKS["${REPO_PATH}/hypr/hyprland.conf"]="${HOME}/.config/hypr/hyprland.conf"
+    SYMLINKS["${REPO_PATH}/hypr/hyprpaper.conf"]="${HOME}/.config/hypr/hyprpaper.conf"
+    SYMLINKS["${REPO_PATH}/anyrun"]="${HOME}/.config/anyrun"
+    SYMLINKS["${REPO_PATH}/waybar"]="${HOME}/.config/waybar"
 fi
+
+#for SRC in "${!SYMLINKS[@]}"; do
+#    DEST="${SYMLINKS[$SRC]}"
+#    mkdir -p "$(dirname "$DEST")"
+#    ln -sf "$SRC" "$DEST"
+#    echo_green "Symlinked: $SRC -> $DEST"
+#done
+
 
 for SRC in "${!SYMLINKS[@]}"; do
     DEST="${SYMLINKS[$SRC]}"
     mkdir -p "$(dirname "$DEST")"
-    ln -sf "$SRC" "$DEST"
+
+    # prevent accidental self-referential symlinks
+    if [[ "$(realpath -m "$SRC")" == "$(realpath -m "$DEST")" ]]; then
+        echo_red "Skipping self-symlink: $SRC == $DEST"
+        continue
+    fi
+
+    ln -snf "$SRC" "$DEST"
     echo_green "Symlinked: $SRC -> $DEST"
 done
+
+
 
 # symlink pipewire
 for f in ${REPO_PATH}/pipewire/*; do
