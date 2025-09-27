@@ -84,6 +84,7 @@ base_packages=(
     imagemagick
     cmake
     noto-fonts-cjk
+	btop
 )
 
 desktop_packages=(
