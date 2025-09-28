@@ -1,0 +1,69 @@
+window {
+  background: transparent;
+}
+
+box.main {
+  padding: 5px;
+  margin: 30px;
+  border-radius: 0px;
+  border: 2px solid white;
+  background-color: black;
+  box-shadow: 0 0 15px rgb(255,100,100);
+}
+
+
+text {
+  min-height: 30px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.matches {
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 10px;
+}
+
+box.plugin:first-child {
+  margin-top: 5px;
+}
+
+box.plugin.info {
+  width: 0px;
+  max-width: 1px;
+  background: red;
+}
+
+list.plugin {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+label.match.description {
+  font-size: 10px;
+}
+
+label.plugin.info {
+  font-size: 14px;
+}
+
+.match {
+  background: transparent;
+}
+
+.match:selected {
+  border-left: 0px solid red;
+  background: rgb(255,120,120);
+  animation: fade 0.1s linear;
+  color: white;
+}
+.match.title {
+ font-size: 20px;
+}
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

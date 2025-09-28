@@ -1,0 +1,104 @@
+@define-color lightblue #6666FF;
+@define-color lightgrey #202020;
+@define-color pink #bf17b6;
+@define-color accent @pink;
+
+* {
+    /* `otf-font-awesome` is required to be installed for icons */
+    font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+}
+
+window#waybar {
+    background-color: rgba(0, 0, 0, 0.2);
+	background: linear-gradient(180deg,rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 800%);
+    color: #ffffff;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+button {
+    border: none;
+    border-radius: 0;
+	padding: 0px;
+}
+
+button:hover {
+    background: inherit;
+}
+
+#workspaces button {
+    background-color: @accent;
+    color: #ffffff;
+}
+
+#workspaces button:hover {
+    background: #FFFFFF;
+	color: black;
+}
+
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#power-profiles-daemon,
+#custom-power,
+#mpd {
+	padding: 0 10px;
+	color: #ffffff;
+	background: @accent;
+}
+
+#custom-power {
+	padding: 0;
+}
+
+#window,
+#workspaces {
+    margin: 0;
+}
+
+/* SLASH */
+.modules-left > widget:first-child > #custom-left-slash {
+    background: @accent;
+	margin-left: -5px;
+}
+
+.modules-right > widget:last-child > #custom-right-slash {
+    background: @accent;
+	margin-right: -10px;
+}
+
+#custom-left-slash,
+#custom-right-slash {
+	margin: 0;
+	padding: 0;
+	font-size: 25.6px;
+    color: @accent;
+	background: none;
+}
+
+#custom-left-slash {
+	padding-left: 0px;
+}
+
+#custom-right-slash {
+	padding-right: 0px;
+}
+
