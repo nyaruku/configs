@@ -180,7 +180,6 @@ if [[ "$HEADLESS" != 1 ]]; then
         "${HOME}/.themes/railv1"
         "${HOME}/.icons"
         "${HOME}/.icons/default"
-		"${HOME}/.config/hypr"
     )
 fi
 
@@ -208,19 +207,12 @@ if [[ "$HEADLESS" != 1 ]]; then
     #SYMLINKS["${REPO_PATH}/flameshot/flameshot.ini"]="${HOME}/.config/flameshot/flameshot.ini"
     #SYMLINKS["${REPO_PATH}/emacs/init.el"]="${HOME}/.emacs"
     SYMLINKS["${REPO_PATH}/theme/gtk-theme/Nord-Black-Frost"]="${HOME}/.themes/Nord-Black-Frost"
-    SYMLINKS["${REPO_PATH}/hypr/hyprland.conf"]="${HOME}/.config/hypr/hyprland.conf"
-    SYMLINKS["${REPO_PATH}/hypr/hyprpaper.conf"]="${HOME}/.config/hypr/hyprpaper.conf"
+    SYMLINKS["${REPO_PATH}/hypr"]="${HOME}/.config/hypr"
     SYMLINKS["${REPO_PATH}/anyrun"]="${HOME}/.config/anyrun"
     SYMLINKS["${REPO_PATH}/waybar"]="${HOME}/.config/waybar"
+    SYMLINKS["${REPO_PATH}/fontconfig"]="${HOME}/.config/fontconfig"
+    SYMLINKS["${REPO_PATH}/fastfetch"]="${HOME}/.config/fastfetch"
 fi
-
-#for SRC in "${!SYMLINKS[@]}"; do
-#    DEST="${SYMLINKS[$SRC]}"
-#    mkdir -p "$(dirname "$DEST")"
-#    ln -sf "$SRC" "$DEST"
-#    echo_green "Symlinked: $SRC -> $DEST"
-#done
-
 
 for SRC in "${!SYMLINKS[@]}"; do
     DEST="${SYMLINKS[$SRC]}"
@@ -235,8 +227,6 @@ for SRC in "${!SYMLINKS[@]}"; do
     ln -snf "$SRC" "$DEST"
     echo_green "Symlinked: $SRC -> $DEST"
 done
-
-
 
 # symlink pipewire
 for f in ${REPO_PATH}/pipewire/*; do
