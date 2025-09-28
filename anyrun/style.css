@@ -5,10 +5,10 @@ window {
 box.main {
   padding: 5px;
   margin: 30px;
-  border-radius: 0px;
+  border-radius: 20px;
   border: 2px solid white;
-  background-color: black;
-  box-shadow: 0 0 15px rgb(255,100,100);
+  background-color: rgba(0,0,0,0.8);
+  box-shadow: 0 0 15px rgb(200,20,200);
 }
 
 
@@ -38,7 +38,7 @@ list.plugin {
 }
 
 label.match.description {
-  font-size: 10px;
+  font-size: 12px;
 }
 
 label.plugin.info {
@@ -51,9 +51,10 @@ label.plugin.info {
 
 .match:selected {
   border-left: 0px solid red;
-  background: rgb(255,120,120);
-  animation: fade 0.1s linear;
+  background: rgb(150,0,150);
+  animation: fade 0.5s linear;
   color: white;
+  border-radius: 10px;
 }
 .match.title {
  font-size: 20px;
