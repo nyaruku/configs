@@ -259,18 +259,18 @@ echo_blue "Installing packages from AUR..."
 # AUR package list
 
 aur_packages_desktop=(
-  spotify
+  #spotify
   bauh
   pulsemeeter
   win2xcur
-  nvtop
-  steam-acolyte
-  lutris
-  opentabletdriver
-  obs-studio-browser
-  ffmpeg-obs
+  #nvtop
+  #steam-acolyte
+  #lutris
+  #opentabletdriver
+  #obs-studio-browser
+  #ffmpeg-obs
   pinta
-  spotify-1.1
+  #spotify-1.1
 )
 
 aur_packages_server=(

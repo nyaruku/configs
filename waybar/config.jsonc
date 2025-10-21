@@ -18,6 +18,9 @@
     ],
     "modules-right": [
 		"custom/left-slash",
+		"battery",
+		"custom/right-slash",
+		"custom/left-slash",
         "pulseaudio",
 		"custom/right-slash",
 		"custom/left-slash",
@@ -60,6 +63,7 @@
 		"min-length": 18,
 		"interval": 1
     },
+
 	"clock": {
         "format": "{:%R - %d.%m.%Y}",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
@@ -123,5 +127,17 @@
 			"logout": "loginctl terminate-user $USER",
 	        "lock": "loginctl lock-session"
 		}
-    }
+    },
+	"battery": {
+		"format": "{capacity}% {icon}",
+		"format-charging": " {capacity}%",
+		"format-plugged": " {capacity}%",
+		"format-alt": "{time} ({capacity}%)",
+		"format-icons": ["", "", "", "", ""],
+		"interval": 30,
+		"states": {
+			"warning": 20,
+			"critical": 10
+		}
+	}
 }
