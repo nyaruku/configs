@@ -5,6 +5,8 @@
 # ( CAN BE USED TO SYNC AN ALREADY CONFIGURED INSTALLATION ) #
 ##############################################################
 # DISTRO: ARCH LINUX                                         #
+# WM: HYPRLAND (WAYLAND)                                     #
+# ( MAY NOT WORK WITH OTHER DISTRIBUTIONS )                  #
 ##############################################################
 
 # COLORED ECHO OUTPUT FUNCTIONS
@@ -99,15 +101,13 @@ desktop_packages=(
     xorg-xcursorgen
     xcur2png
     icoutils
-    xfwm4-themes
     lxappearance
     glxinfo
     gnome-tweaks
     libva
     mpv
 	keepassxc
-    #obs-studio
-    #flameshot
+    obs-studio
 )
 
 nvidia_packages=(
@@ -204,7 +204,6 @@ declare -A SYMLINKS=(
 # GUI symlinks (only desktop)
 if [[ "$HEADLESS" != 1 ]]; then
     SYMLINKS["${REPO_PATH}/kitty/kitty.conf"]="${HOME}/.config/kitty/kitty.conf"
-    #SYMLINKS["${REPO_PATH}/flameshot/flameshot.ini"]="${HOME}/.config/flameshot/flameshot.ini"
     #SYMLINKS["${REPO_PATH}/emacs/init.el"]="${HOME}/.emacs"
     SYMLINKS["${REPO_PATH}/theme/gtk-theme/Nord-Black-Frost"]="${HOME}/.themes/Nord-Black-Frost"
     SYMLINKS["${REPO_PATH}/hypr"]="${HOME}/.config/hypr"
@@ -235,7 +234,6 @@ for f in ${REPO_PATH}/pipewire/*; do
 done
 
 #echo_blue "Applying WM Theme..."
-#xfconf-query -c xfwm4 -p /general/theme -s "railv1"
 
 # Download and install AUR
 echo_blue "Checking yay..."
@@ -263,14 +261,14 @@ aur_packages_desktop=(
   bauh
   pulsemeeter
   win2xcur
-  #nvtop
-  #steam-acolyte
-  #lutris
-  #opentabletdriver
-  #obs-studio-browser
-  #ffmpeg-obs
+  nvtop
+  steam-acolyte
+  lutris
+  opentabletdriver
+  obs-studio-browser
+  ffmpeg-obs
   pinta
-  #spotify-1.1
+  spotify-1.1
 )
 
 aur_packages_server=(
