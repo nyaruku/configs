@@ -125,7 +125,7 @@
 			"suspend": "systemctl suspend",
 			"hibernate": "systemctl hibernate",
 			"logout": "loginctl terminate-user $USER",
-	        "lock": "loginctl lock-session"
+	        "lock": "hyprlock"
 		}
     },
 	"battery": {

@@ -199,6 +199,7 @@ declare -A SYMLINKS=(
   ["${REPO_PATH}/nvim/init.lua"]="${HOME}/.config/nvim/init.lua"
   ["${REPO_PATH}/mpv/mpv.conf"]="${HOME}/.config/mpv/mpv.conf"
   ["${REPO_PATH}/bash-git-prompt"]="${HOME}/.bash-git-prompt"
+  ["${REPO_PATH}/starship/starship.toml"]="${HOME}/.config/starship.toml"
 )
 
 # GUI symlinks (only desktop)

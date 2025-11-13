@@ -1,6 +1,6 @@
-@define-color lightblue #6666FF;
+@define-color lightblue #303040;
 @define-color lightgrey #202020;
-@define-color pink #303030;
+@define-color pink #505070;
 @define-color accent @pink;
 
 * {
@@ -10,8 +10,7 @@
 }
 
 window#waybar {
-    background-color: rgba(0, 0, 0, 0.2);
-	background: linear-gradient(180deg,rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 800%);
+    background-color: rgba(50, 50, 70, 1.0);
     color: #ffffff;
     transition-property: background-color;
     transition-duration: .5s;
