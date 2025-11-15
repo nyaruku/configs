@@ -27,6 +27,7 @@ alias emacs='emacs -nw' # emacs in cli mode without arg
 alias sue='sudoedit'
 alias gittree='git log --graph --pretty=format:"%C(yellow)%h%C(reset) %C(green)%an%C(reset) %C(cyan)%ad%C(reset) %C(auto)%d%C(reset) %s" --date=format:"%Y-%m-%d %H:%M" --color'
 alias gits='clear;pwd;git status'
+alias spotify='LD_PRELOAD=~/git/spotifywm/spotifywm.so spotify'
 
 aur() {
     if [ -z "$1" ]; then
