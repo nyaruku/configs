@@ -5,7 +5,7 @@ window {
 box.main {
   padding: 5px;
   margin: 30px;
-  border-radius: 20px;
+  border-radius: 0px;
   border: 2px solid white;
   background-color: rgba(0,0,0,0.8);
   box-shadow: 0 0 15px rgb(200,20,200);
@@ -51,10 +51,9 @@ label.plugin.info {
 
 .match:selected {
   border-left: 0px solid red;
-  background: rgb(150,0,150);
-  animation: fade 0.5s linear;
-  color: white;
-  border-radius: 10px;
+  background: #FFF;
+  color: #000;
+  border-radius: 0px;
 }
 .match.title {
  font-size: 20px;

@@ -13,12 +13,12 @@ PS1='[\u@\h \W]\$ '
 # Custom Bash Config 
 #
 
-if [ -f "$HOME/.bash-git-prompt/gitprompt.sh" ]; then
-    GIT_PROMPT_ONLY_IN_REPO=1
-	GIT_PROMPT_VIRTUAL_ENV_AFTER_PROMPT=1
-	source "$HOME/.bash-git-prompt/gitprompt.sh"
-fi
-
+#if [ -f "$HOME/.bash-git-prompt/gitprompt.sh" ]; then
+    #GIT_PROMPT_ONLY_IN_REPO=1
+	#GIT_PROMPT_VIRTUAL_ENV_AFTER_PROMPT=1
+	#source "$HOME/.bash-git-prompt/gitprompt.sh"
+#fi
+eval "$(starship init bash)"
 alias ll='ls -lha --color=auto'
 alias ls='ls -a --color=auto'
 alias df='df -h'
