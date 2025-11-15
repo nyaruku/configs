@@ -166,7 +166,6 @@ dirs=(
 	"${HOME}/git"
     "${HOME}/deb"
     "${HOME}/.config/nvim"
-    "${HOME}/.config/nvim/lua"
     "${HOME}/.config/pipewire"
     "${HOME}/.config/mpv"
 )
@@ -197,6 +196,7 @@ declare -A SYMLINKS=(
   ["${REPO_PATH}/vim/.vimrc"]="${HOME}/.vimrc"
   ["${REPO_PATH}/tmux/tmux.conf"]="${HOME}/.tmux.conf"
   ["${REPO_PATH}/nvim/init.lua"]="${HOME}/.config/nvim/init.lua"
+  ["${REPO_PATH}/nvim/lua"]="${HOME}/.config/nvim/lua"
   ["${REPO_PATH}/mpv/mpv.conf"]="${HOME}/.config/mpv/mpv.conf"
   ["${REPO_PATH}/bash-git-prompt"]="${HOME}/.bash-git-prompt"
   ["${REPO_PATH}/starship/starship.toml"]="${HOME}/.config/starship.toml"
