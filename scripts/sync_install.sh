@@ -5,6 +5,8 @@
 # ( CAN BE USED TO SYNC AN ALREADY CONFIGURED INSTALLATION ) #
 ##############################################################
 # DISTRO: ARCH LINUX                                         #
+# WM: HYPRLAND (WAYLAND)                                     #
+# ( MAY NOT WORK WITH OTHER DISTRIBUTIONS )                  #
 ##############################################################
 
 # COLORED ECHO OUTPUT FUNCTIONS
@@ -166,7 +168,6 @@ dirs=(
 	"${HOME}/git"
     "${HOME}/deb"
     "${HOME}/.config/nvim"
-    "${HOME}/.config/nvim/lua"
     "${HOME}/.config/pipewire"
     "${HOME}/.config/mpv"
 )
@@ -197,14 +198,15 @@ declare -A SYMLINKS=(
   ["${REPO_PATH}/vim/.vimrc"]="${HOME}/.vimrc"
   ["${REPO_PATH}/tmux/tmux.conf"]="${HOME}/.tmux.conf"
   ["${REPO_PATH}/nvim/init.lua"]="${HOME}/.config/nvim/init.lua"
+  ["${REPO_PATH}/nvim/lua"]="${HOME}/.config/nvim/lua"
   ["${REPO_PATH}/mpv/mpv.conf"]="${HOME}/.config/mpv/mpv.conf"
   ["${REPO_PATH}/bash-git-prompt"]="${HOME}/.bash-git-prompt"
+  ["${REPO_PATH}/starship/starship.toml"]="${HOME}/.config/starship.toml"
 )
 
 # GUI symlinks (only desktop)
 if [[ "$HEADLESS" != 1 ]]; then
     SYMLINKS["${REPO_PATH}/kitty/kitty.conf"]="${HOME}/.config/kitty/kitty.conf"
-    #SYMLINKS["${REPO_PATH}/flameshot/flameshot.ini"]="${HOME}/.config/flameshot/flameshot.ini"
     #SYMLINKS["${REPO_PATH}/emacs/init.el"]="${HOME}/.emacs"
     SYMLINKS["${REPO_PATH}/theme/gtk-theme/Nord-Black-Frost"]="${HOME}/.themes/Nord-Black-Frost"
     SYMLINKS["${REPO_PATH}/hypr"]="${HOME}/.config/hypr"

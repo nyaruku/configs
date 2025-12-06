@@ -1,6 +1,6 @@
 # run scripts/config_nvim.sh to install lazy
 
-vim.opt.expandtab = false        -- keep tabs as tabs
+vim.opt.expandtab = true	     -- keep tabs as tabs
 vim.opt.tabstop = 4              -- width of a tab character
 vim.opt.shiftwidth = 4           -- width for indentation commands
 vim.opt.softtabstop = 4          -- how many spaces a tab feels like
@@ -66,12 +66,6 @@ local plugins = {
     "hrsh7th/cmp-buffer",      -- buffer source for nvim-cmp
   },
   {
-    "L3MON4D3/LuaSnip",        -- snippets
-  },
-  {
-    "saadparwaiz1/cmp_luasnip",-- snippet source
-  },
-  {
     "romgrk/barbar.nvim",
       dependencies = {
         "lewis6991/gitsigns.nvim", -- OPTIONAL: for git status
@@ -94,30 +88,7 @@ require("lazy").setup(plugins)
 local lspconfig = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
--- Clangd for C/C++
-lspconfig.clangd.setup({
-  cmd = {
-    "clangd",
-    "--background-index",           -- index symbols in background
-    "--completion-style=detailed",  -- richer completion proposals
-    "--header-insertion=never",     -- disable auto header insertion
-    "--clang-tidy",                 -- optional: enable clang-tidy suggestions
-  },
-  init_options = {
-    clangdFileStatus = true,
-    -- fallbackFlags help single-file buffers or missing entries
-    fallbackFlags = { "-std=c++20" },
-  },
-  capabilities = capabilities,
-  filetypes = { "c", "cpp", "objc", "objcpp", "h", "hpp" },
-  root_dir = lspconfig.util.root_pattern(
-    "compile_commands.json",
-    ".clangd",
-    ".clang-tidy",
-    ".clang-format",
-    ".git"
-  ),
-})
+--require("lsp.clangd").setup()
 
 -- Setup nvim-cmp
 local cmp = require("cmp")
@@ -129,18 +100,12 @@ cmp.setup({
   completion = {
     autocomplete = { cmp.TriggerEvent.InsertEnter, cmp.TriggerEvent.TextChangedI },
   },
-  snippet = {
-    expand = function(args)
-      require("luasnip").lsp_expand(args.body)
-    end,
-  },
   mapping = cmp.mapping.preset.insert({
     ["<C-.>"] = cmp.mapping.complete(),        -- manual completion
     ["<CR>"] = cmp.mapping.confirm({ select = false }),
   }),
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
-    { name = "luasnip" },
   }, {
     { name = "buffer" },
   }),
@@ -149,6 +114,9 @@ cmp.setup({
       mode = "symbol_text",  -- show symbol + text
       maxwidth = 50,
     }),
+  },
+  snippet = {
+    expand = function() end,
   },
   sorting = {
     comparators = {

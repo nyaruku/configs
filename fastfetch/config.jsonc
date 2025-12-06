@@ -38,8 +38,8 @@
     "hideCursor": false,
     "separator": ": ",
     "color": {
-      "keys": "#9090FF",
-      "title": "#bf17b6",
+      "keys": "#a6c0f7",
+      "title": "#a6c0f7",
       "output": "",
       "separator": "#FFF"
     },
