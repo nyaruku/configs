@@ -95,3 +95,10 @@ for key in ~/.ssh/*; do
     fi
 done
 
+export EGL_PLATFORM=eglstream
+export __GLX_VENDOR_LIBRARY_NAME=nvidia
+export __GL_VENDOR_LIBRARY_NAME=NVIDIA
+export __VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/nvidia_icd.json
+
+
+
