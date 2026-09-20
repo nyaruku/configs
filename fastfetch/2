@@ -4,8 +4,8 @@
     "type": "small",
     "source": "",
     "color": {
-      "1": "#CCF",
-      "2": "#446",
+      "1": "",
+      "2": "",
       "3": "",
       "4": "",
       "5": "",
@@ -14,11 +14,11 @@
       "8": "",
       "9": ""
     },
-    "width": 15,
-    "height": null,
+    "width": 30,
+    "height": 35,
     "padding": {
-      "top": 1,
-      "left": 5,
+      "top": 0,
+      "left": 0,
       "right": 1
     },
     "printRemaining": true,
@@ -118,7 +118,7 @@
   "modules": [
     {
       "type": "title",
-      "key": "",
+      "key": " ",
       "keyIcon": "",
       "fqdn": false,
       "color": {
@@ -126,6 +126,12 @@
         "at": "",
         "host": ""
       }
+    },
+    {
+      "type": "separator",
+      "string": "-",
+      "outputColor": "",
+      "length": 0
     },
     {
       "type": "os",
@@ -169,7 +175,7 @@
     {
       "type": "wm",
       "keyIcon": "",
-      "detectPlugin": false
+      "detectPlugin": true
     },
     {
       "type": "wmtheme",
@@ -290,9 +296,7 @@
       "type": "locale",
       "keyIcon": ""
     },
-    {
-      "type": "break"
-    },
+    "break",
     {
       "type": "colors",
       "key": " ",
